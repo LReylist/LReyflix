@@ -1,0 +1,564 @@
+
+
+<channel>
+<name>[B][I][COLOR red]WorldPa[/COLOR][COLOR blue]delTour[/COLOR] [COLOR white]2018[/COLOR][/I][/B]</name>
+<thumbnail>http://i.imgur.com/MSP86rs.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+
+
+<item>
+<title>                              [B][I][COLOR red]WorldPa[/COLOR][COLOR blue]delTour[/COLOR] [COLOR white]2018[/COLOR][/I][/B] </title>
+<link>http://ignoreme.com</link>
+<thumbnail>http://i.imgur.com/MSP86rs.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+<item>
+<title>                                  </title>
+<link>http://Ignoreme.com</link>
+<thumbnail>http://i.imgur.com/MSP86rs.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+<item>
+<title>[COLOR skyblue]Si no cargan los enlaces de los partidos[/COLOR]</title>
+<link>http://Ignoreme.com</link>
+<thumbnail>http://i.imgur.com/MSP86rs.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+<item>
+<title>[COLOR skyblue]insistir una y otra vez hasta que carguen.[/COLOR]</title>
+<link>http://Ignoreme.com</link>
+<thumbnail>http://i.imgur.com/MSP86rs.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+<item>
+<title>                                  </title>
+<link>http://Ignoreme.com</link>
+<thumbnail>http://i.imgur.com/MSP86rs.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+
+
+
+<item>
+<title>[COLOR orange]También te puede interesar,[/COLOR] [COLOR red]WorldPa[/COLOR][COLOR blue]delTour: [/COLOR][COLOR white]Programas TV[/COLOR]</title>
+<link>$doregex[makelist2]</link>
+
+
+<regex>
+<name>makelist2</name>
+<listrepeat><![CDATA[
+<title>[COLOR deepskyblue]Pág. [makelist2.param1][/COLOR]</title>
+<link>$doregex[makelist3]</link>
+<referer></referer>
+<thumbnail>http://i.imgur.com/MSP86rs.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+]]></listrepeat>
+<expres> (.*?),</expres>
+<page>$doregex[get-number]</page>
+<cookieJar></cookieJar>
+</regex>
+
+<regex>
+            <name>makelist3</name>
+            <listrepeat><![CDATA[
+                        <title>[COLOR deepskyblue][makelist3.param2] [/COLOR]</title>
+                        <link>plugin://plugin.video.youtube/play/?video_id=[makelist3.param1]</link>
+                        <thumbnail>https://i.ytimg.com/vi/[makelist3.param1]/hqdefault.jpg</thumbnail>
+            ]]></listrepeat>
+            <expres>spf-link " dir="ltr" href="\/watch\?v=(.*?)&amp;.*?\n(.*)</expres>
+            <page>$doregex[get-source-page]</page>
+             <cookieJar></cookieJar>
+</regex>
+
+<regex>
+<name>get-number</name>
+<expres><![CDATA[#$pyFunction
+def GetLSProData(page_data,Cookie_Jar,m):
+ import requests
+ import re
+ url='https://www.youtube.com/playlist?list=PLOqH7qtUNRO3J4yrEjuFbtis5RQluCseH'
+ headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux i686; rv:42.0) Gecko/20100101 Firefox/42.0 Iceweasel/42.0', 'Accept-Language': 'en-US'}
+ rr = requests.get(url, headers=headers)
+ number = re.findall('</a></li><li>(.*?) vid', rr.text)[0]
+ #number = number.encode('unicode-escape')
+ number = number.replace(',', '')
+ real = int(float(number)) / 100
+ real2 = real + 3
+ liste = list(range(real2))
+ return liste
+]]></expres>
+<page></page>
+</regex>
+
+<regex>
+<name>get-source-page</name>
+<expres><![CDATA[#$pyFunction
+def GetLSProData(page_data,Cookie_Jar,m):
+ import requests
+ import re
+ import json
+ pageUrl='https://www.youtube.com/playlist?list=PLOqH7qtUNRO3J4yrEjuFbtis5RQluCseH'
+ headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux i686; rv:42.0) Gecko/20100101 Firefox/42.0 Iceweasel/42.0'}
+ r1 = requests.get(pageUrl, headers = headers)
+ source = r1.text
+ page = [makelist2.param1]
+ N = int(float(page))
+ pre = 'https://www.youtube.com'
+ if (N > 1):
+   for itr in range (1,N):
+    continuex = re.findall('data-uix-load-more-href="(.*?)"', source)[0]
+    continuationx = pre + continuex
+    r = requests.get(continuationx, headers = headers)
+    source = r.text
+    jdata = json.loads(source)
+    source = jdata["load_more_widget_html"]
+    page = jdata["content_html"]
+   return page
+    
+ else:
+  return source
+]]></expres>
+<page></page>
+</regex>
+<thumbnail>http://i.imgur.com/MSP86rs.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>[COLOR orange]También te puede interesar,[/COLOR] [COLOR red]WorldPa[/COLOR][COLOR blue]delTour[/COLOR] [COLOR white]2016[/COLOR]</title>
+<link>http://ignoreme</link>
+<externallink>https://dl.dropboxusercontent.com/s/mxl8rp0upfrcwmi/WorldPadelTour%202016.html?dl=0</externallink>
+<thumbnail>http://i.imgur.com/MSP86rs.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+<item>
+<title>[COLOR orange]También te puede interesar,[/COLOR] [COLOR red]WorldPa[/COLOR][COLOR blue]delTour[/COLOR] [COLOR white]2017[/COLOR]</title>
+<link>http://ignoreme</link>
+<externallink>https://dl.dropboxusercontent.com/s/1p2k7t3gt86myt1/WorldPadelTour%202017.html?dl=0</externallink>
+<thumbnail>http://i.imgur.com/MSP86rs.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+<item>
+<title>[COLOR orange]También te puede interesar,[/COLOR] [COLOR red]WorldPa[/COLOR][COLOR blue]delTour: [/COLOR][COLOR white]Resúmenes 2016 - 2018[/COLOR]</title>
+
+<link>$doregex[makelist]</link>
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+    <title>[COLOR red]Youtube:[/COLOR] [COLOR blue][makelist.param2][/COLOR]</title>
+    <link>plugin://plugin.video.youtube/play/?video_id=[makelist.param1]</link>
+    <thumbnail>http://i.imgur.com/MSP86rs.jpg</thumbnail>
+]]></listrepeat>
+<expres>\s?.data-video-id="(.*?)".*data-title="(.*?)"</expres>
+<page>https://www.youtube.com/playlist?list=UUK59dYVs3Wgwoe73nDTH6jw</page>
+<referer>https://www.youtube.com/user/WorldPadelTourAJPP/playlists</referer>
+<cookieJar></cookieJar>
+</regex>
+<thumbnail>http://i.imgur.com/MSP86rs.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>[COLOR orange]También te puede interesar,[/COLOR] [B][I][COLOR skyblue]Vamos[/COLOR][COLOR lime]Padel[/COLOR][/I][/B]</title>
+<link>http://ignoreme</link>
+<externallink>https://dl.dropboxusercontent.com/s/aifqjx6qttw1byg/VamosPadel.html?dl=0</externallink>
+<thumbnail>https://pbs.twimg.com/profile_images/531777076433399808/QNA-WY1H.jpeg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+
+
+<item>
+<title>                                  </title>
+<link>http://Ignoreme.com</link>
+<thumbnail>http://i.imgur.com/MSP86rs.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+
+
+
+
+
+
+
+
+
+
+<item>
+<title>[COLOR red]W[/COLOR][COLOR blue]P[/COLOR][COLOR red]T[/COLOR] [COLOR white]2018:[/COLOR][COLOR gold] Estrella Damm Catalunya Master [/COLOR][COLOR red]- Finalizado -[/COLOR]</title>
+
+<link>$doregex[makelist]</link>
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+    <title>[COLOR red]Youtube:[/COLOR] [COLOR blue][makelist.param2][/COLOR]</title>
+    <link>plugin://plugin.video.youtube/play/?video_id=[makelist.param1]</link>
+    <thumbnail>http://i.imgur.com/Hxgr71t.jpg</thumbnail>
+]]></listrepeat>
+<expres>\s?.data-video-id="(.*?)".*data-title="(.*?)"</expres>
+<page>https://www.youtube.com/playlist?list=PL5OgI0HgFOhUlPWkkcRa9f-Cr71LfC-8a</page>
+<referer>https://www.youtube.com/user/WorldPadelTourAJPP/playlists</referer>
+<cookieJar></cookieJar>
+</regex>
+<thumbnail>http://www.worldpadeltour.com/media-content/2018/03/estrella-damm-catalunya-master-2018-11803d9e07.PNG</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+<item>
+<title>[COLOR red]W[/COLOR][COLOR blue]P[/COLOR][COLOR red]T[/COLOR] [COLOR white]2018:[/COLOR][COLOR gold] Alicante Open [/COLOR][COLOR red]- Finalizado -[/COLOR]</title>
+
+<link>$doregex[makelist]</link>
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+    <title>[COLOR red]Youtube:[/COLOR] [COLOR blue][makelist.param2][/COLOR]</title>
+    <link>plugin://plugin.video.youtube/play/?video_id=[makelist.param1]</link>
+   <thumbnail>http://i.imgur.com/85zYG97.jpg</thumbnail>
+]]></listrepeat>
+<expres>\s?.data-video-id="(.*?)".*data-title="(.*?)"</expres>
+<page>https://www.youtube.com/playlist?list=PL5OgI0HgFOhX7pXfjnaHLk65U6tgmp0pz</page>
+<referer>https://www.youtube.com/user/WorldPadelTourAJPP/playlists</referer>
+<cookieJar></cookieJar>
+</regex>
+<thumbnail>http://www.worldpadeltour.com/media-content/2018/02/estrella-damm-alicante-open-2018-c48735f138.PNG</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+
+
+<item>
+<title>[COLOR red]W[/COLOR][COLOR blue]P[/COLOR][COLOR red]T[/COLOR] [COLOR white]2018:[/COLOR][COLOR gold] Zaragoza Open [/COLOR][COLOR red]- Finalizado -[/COLOR]</title>
+
+<link>$doregex[makelist]</link>
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+    <title>[COLOR red]Youtube:[/COLOR] [COLOR blue][makelist.param2][/COLOR]</title>
+    <link>plugin://plugin.video.youtube/play/?video_id=[makelist.param1]</link>
+  <thumbnail>http://i.imgur.com/CCPCl3v.jpg</thumbnail>
+]]></listrepeat>
+<expres>\s?.data-video-id="(.*?)".*data-title="(.*?)"</expres>
+<page>https://www.youtube.com/playlist?list=PL5OgI0HgFOhXUd4cudwTqOpH2oTPV849Y</page>
+<referer>https://www.youtube.com/user/WorldPadelTourAJPP/playlists</referer>
+<cookieJar></cookieJar>
+</regex>
+<thumbnail>http://www.worldpadeltour.com/media-content/2018/02/estrella-damm-zaragoza-open-2018-73c5dc368f.PNG</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+
+
+
+<item>
+<title>[COLOR red]W[/COLOR][COLOR blue]P[/COLOR][COLOR red]T[/COLOR] [COLOR white]2018:[/COLOR][COLOR gold] Jaen Open [/COLOR][COLOR red]- Finalizado -[/COLOR]</title>
+
+<link>$doregex[makelist]</link>
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+    <title>[COLOR red]Youtube:[/COLOR] [COLOR blue][makelist.param2][/COLOR]</title>
+    <link>plugin://plugin.video.youtube/play/?video_id=[makelist.param1]</link>
+    <thumbnail>http://i.imgur.com/UgGW4Pg.jpg</thumbnail>
+]]></listrepeat>
+<expres>\s?.data-video-id="(.*?)".*data-title="(.*?)"</expres>
+<page>https://www.youtube.com/playlist?list=PL5OgI0HgFOhVzDDeLmWON4E2m0Kac32HA</page>
+<referer>https://www.youtube.com/user/WorldPadelTourAJPP/playlists</referer>
+<cookieJar></cookieJar>
+</regex>
+<thumbnail>http://www.worldpadeltour.com/media-content/2018/03/jan-open-2018-d353bc943a.PNG</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+<item>
+<title>[COLOR red]W[/COLOR][COLOR blue]P[/COLOR][COLOR red]T[/COLOR] [COLOR white]2018:[/COLOR][COLOR gold] Valladolid Open 2018 [/COLOR][COLOR red]- Finalizado -[/COLOR]</title>
+
+<link>$doregex[makelist]</link>
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+    <title>[COLOR red]Youtube:[/COLOR] [COLOR blue][makelist.param2][/COLOR]</title>
+    <link>plugin://plugin.video.youtube/play/?video_id=[makelist.param1]</link>
+    <thumbnail>http://i.imgur.com/7JIbWHy.jpg</thumbnail>
+]]></listrepeat>
+<expres>\s?.data-video-id="(.*?)".*data-title="(.*?)"</expres>
+<page>https://www.youtube.com/playlist?list=PL5OgI0HgFOhU37ujgzaIhgdUCsWoayJoz</page>
+<referer>https://www.youtube.com/user/WorldPadelTourAJPP/playlists</referer>
+<cookieJar></cookieJar>
+</regex>
+<thumbnail>http://i.imgur.com/7JIbWHy.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+
+
+<item>
+<title>[COLOR red]W[/COLOR][COLOR blue]P[/COLOR][COLOR red]T[/COLOR] [COLOR white]2018:[/COLOR][COLOR gold] Valencia Master [/COLOR][COLOR red]- Finalizado -[/COLOR]</title>
+
+<link>$doregex[makelist]</link>
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+    <title>[COLOR red]Youtube:[/COLOR] [COLOR blue][makelist.param2][/COLOR]</title>
+    <link>plugin://plugin.video.youtube/play/?video_id=[makelist.param1]</link>
+   <thumbnail>http://i.imgur.com/JK5adro.jpg</thumbnail>
+]]></listrepeat>
+<expres>\s?.data-video-id="(.*?)".*data-title="(.*?)"</expres>
+<page>https://www.youtube.com/playlist?list=PL5OgI0HgFOhXfuKvaDg22GEY7ychRXR__</page>
+<referer>https://www.youtube.com/user/WorldPadelTourAJPP/playlists</referer>
+<cookieJar></cookieJar>
+</regex>
+<thumbnail>http://i.imgur.com/JK5adro.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+
+
+<item>
+<title>[COLOR red]W[/COLOR][COLOR blue]P[/COLOR][COLOR red]T[/COLOR] [COLOR white]2018:[/COLOR][COLOR gold] Swedish Padel Open [/COLOR][COLOR red]- Finalizado -[/COLOR]</title>
+
+<link>$doregex[makelist]</link>
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+    <title>[COLOR red]Youtube:[/COLOR] [COLOR blue][makelist.param2][/COLOR]</title>
+    <link>plugin://plugin.video.youtube/play/?video_id=[makelist.param1]</link>
+    <thumbnail>http://i.imgur.com/52fK5VH.jpg</thumbnail>
+]]></listrepeat>
+<expres>\s?.data-video-id="(.*?)".*data-title="(.*?)"</expres>
+<page>https://www.youtube.com/playlist?list=PL5OgI0HgFOhWWDjDblNAeCvlxjG8YI8CC</page>
+<referer>https://www.youtube.com/user/WorldPadelTourAJPP/playlists</referer>
+<cookieJar></cookieJar>
+</regex>
+<thumbnail>http://i.imgur.com/52fK5VH.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+
+
+<item>
+<title>[COLOR red]W[/COLOR][COLOR blue]P[/COLOR][COLOR red]T[/COLOR] [COLOR white]2018:[/COLOR][COLOR gold] Mijas Open [/COLOR][COLOR red]- Finalizado -[/COLOR]</title>
+
+<link>$doregex[makelist]</link>
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+    <title>[COLOR red]Youtube:[/COLOR] [COLOR blue][makelist.param2][/COLOR]</title>
+    <link>plugin://plugin.video.youtube/play/?video_id=[makelist.param1]</link>
+    <thumbnail>http://i.imgur.com/yxUWvEI.jpg</thumbnail>
+]]></listrepeat>
+<expres>\s?.data-video-id="(.*?)".*data-title="(.*?)"</expres>
+<page>https://www.youtube.com/playlist?list=PL5OgI0HgFOhWWWKnwgxTq_IeUL0U19oLh</page>
+<referer>https://www.youtube.com/user/WorldPadelTourAJPP/playlists</referer>
+<cookieJar></cookieJar>
+</regex>
+<thumbnail>http://i.imgur.com/yxUWvEI.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>[COLOR red]W[/COLOR][COLOR blue]P[/COLOR][COLOR red]T[/COLOR] [COLOR white]2018:[/COLOR][COLOR gold] Andorra Open [/COLOR][COLOR red]- Finalizado -[/COLOR]</title>
+
+<link>$doregex[makelist]</link>
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+    <title>[COLOR red]Youtube:[/COLOR] [COLOR blue][makelist.param2][/COLOR]</title>
+    <link>plugin://plugin.video.youtube/play/?video_id=[makelist.param1]</link>
+   <thumbnail>http://i.imgur.com/EzIi1r3.jpg</thumbnail>
+]]></listrepeat>
+<expres>\s?.data-video-id="(.*?)".*data-title="(.*?)"</expres>
+<page>https://www.youtube.com/playlist?list=PL5OgI0HgFOhVOgZNt-OzD2bSdgclUr5XO</page>
+<referer>https://www.youtube.com/user/WorldPadelTourAJPP/playlists</referer>
+<cookieJar></cookieJar>
+</regex>
+<thumbnail>http://i.imgur.com/EzIi1r3.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>[COLOR red]W[/COLOR][COLOR blue]P[/COLOR][COLOR red]T[/COLOR] [COLOR white]2018:[/COLOR][COLOR gold] Lugo Open [/COLOR][COLOR lime] (Live) 6 - 9 Septiembre[/COLOR]</title>
+
+<link>$doregex[makelist]</link>
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+    <title>[COLOR red]Youtube:[/COLOR] [COLOR blue][makelist.param2][/COLOR]</title>
+    <link>plugin://plugin.video.youtube/play/?video_id=[makelist.param1]</link>
+    <thumbnail>http://i.imgur.com/X7IeS6M.jpg</thumbnail>
+]]></listrepeat>
+<expres>\s?.data-video-id="(.*?)".*data-title="(.*?)"</expres>
+<page>https://www.youtube.com/playlist?list=PL5OgI0HgFOhUihtCtkrjqeO1lt_wqQVwy</page>
+<referer>https://www.youtube.com/user/WorldPadelTourAJPP/playlists</referer>
+<cookieJar></cookieJar>
+</regex>
+<thumbnail>http://i.imgur.com/X7IeS6M.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+
+
+<item>
+<title>[COLOR red]W[/COLOR][COLOR blue]P[/COLOR][COLOR red]T[/COLOR] [COLOR white]2018:[/COLOR][COLOR gold] Lisboa Master [/COLOR][COLOR red]20 - 23 Septiembre[/COLOR]</title>
+
+<link>$doregex[makelist]</link>
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+    <title>[COLOR red]Youtube:[/COLOR] [COLOR blue][makelist.param2][/COLOR]</title>
+    <link>plugin://plugin.video.youtube/play/?video_id=[makelist.param1]</link>
+    <thumbnail>http://i.imgur.com/ytsxumo.jpg</thumbnail>
+]]></listrepeat>
+<expres>\s?.data-video-id="(.*?)".*data-title="(.*?)"</expres>
+<page>https://www.youtube.com/playlist?list=PL5OgI0HgFOhVqCpllsebMCcZLgLP4OxPV</page>
+<referer>https://www.youtube.com/user/WorldPadelTourAJPP/playlists</referer>
+<cookieJar></cookieJar>
+</regex>
+<thumbnail>http://i.imgur.com/ytsxumo.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+
+<item>
+<title>[COLOR red]W[/COLOR][COLOR blue]P[/COLOR][COLOR red]T[/COLOR] [COLOR white]2018:[/COLOR][COLOR gold] Granada Open [/COLOR][COLOR red]11 - 14 Octubre[/COLOR]</title>
+
+<link>$doregex[makelist]</link>
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+    <title>[COLOR red]Youtube:[/COLOR] [COLOR blue][makelist.param2][/COLOR]</title>
+    <link>plugin://plugin.video.youtube/play/?video_id=[makelist.param1]</link>
+    <thumbnail>http://i.imgur.com/bUJf9MN.jpg</thumbnail>
+]]></listrepeat>
+<expres>\s?.data-video-id="(.*?)".*data-title="(.*?)"</expres>
+<page>https://www.youtube.com/playlist?list=PL5OgI0HgFOhVl7lPOYfod9f3v1nhfMtnr</page>
+<referer>https://www.youtube.com/user/WorldPadelTourAJPP/playlists</referer>
+<cookieJar></cookieJar>
+</regex>
+<thumbnail>http://i.imgur.com/bUJf9MN.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+
+
+<item>
+<title>[COLOR red]W[/COLOR][COLOR blue]P[/COLOR][COLOR red]T[/COLOR] [COLOR white]2018:[/COLOR][COLOR gold] Bilbao Open [/COLOR][COLOR red]25 - 28 Octubre[/COLOR]</title>
+
+<link>$doregex[makelist]</link>
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+    <title>[COLOR red]Youtube:[/COLOR] [COLOR blue][makelist.param2][/COLOR]</title>
+    <link>plugin://plugin.video.youtube/play/?video_id=[makelist.param1]</link>
+   <thumbnail>http://i.imgur.com/cq02EKi.jpg</thumbnail>
+]]></listrepeat>
+<expres>\s?.data-video-id="(.*?)".*data-title="(.*?)"</expres>
+<page>https://www.youtube.com/playlist?list=PL5OgI0HgFOhXI3sW4dUL2zK2zx0lyl03d<
+/page>
+<referer>https://www.youtube.com/user/WorldPadelTourAJPP/playlists</referer>
+<cookieJar></cookieJar>
+</regex>
+<thumbnail>http://i.imgur.com/cq02EKi.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+
+
+<item>
+<title>[COLOR red]W[/COLOR][COLOR blue]P[/COLOR][COLOR red]T[/COLOR] [COLOR white]2018:[/COLOR][COLOR gold] Buenos Aires Padel Master [/COLOR][COLOR red]8 - 11 Noviembre[/COLOR]</title>
+
+<link>$doregex[makelist]</link>
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+    <title>[COLOR red]Youtube:[/COLOR] [COLOR blue][makelist.param2][/COLOR]</title>
+    <link>plugin://plugin.video.youtube/play/?video_id=[makelist.param1]</link>
+    <thumbnail>http://i.imgur.com/Ot6oc8q.jpg</thumbnail>
+]]></listrepeat>
+<expres>\s?.data-video-id="(.*?)".*data-title="(.*?)"</expres>
+<page>https://www.youtube.com/playlist?list=PL5OgI0HgFOhV7N7KAkmdKn5PB-9imaAiR</page>
+<referer>https://www.youtube.com/user/WorldPadelTourAJPP/playlists</referer>
+<cookieJar></cookieJar>
+</regex>
+<thumbnail>http://i.imgur.com/Ot6oc8q.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+
+
+
+<item>
+<title>[COLOR red]W[/COLOR][COLOR blue]P[/COLOR][COLOR red]T[/COLOR] [COLOR white]2018:[/COLOR][COLOR gold] Murcia Open [/COLOR][COLOR red]22 - 25 Noviembre[/COLOR]</title>
+
+<link>$doregex[makelist]</link>
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+    <title>[COLOR red]Youtube:[/COLOR] [COLOR blue][makelist.param2][/COLOR]</title>
+    <link>plugin://plugin.video.youtube/play/?video_id=[makelist.param1]</link>
+    <thumbnail>http://i.imgur.com/6g6pFJC.jpg</thumbnail>
+]]></listrepeat>
+<expres>\s?.data-video-id="(.*?)".*data-title="(.*?)"</expres>
+<page>https://www.youtube.com/playlist?list=PL5OgI0HgFOhUzw4j5HMNA73E2Kbwprla4</page>
+<referer>https://www.youtube.com/user/WorldPadelTourAJPP/playlists</referer>
+<cookieJar></cookieJar>
+</regex>
+<thumbnail>http://i.imgur.com/6g6pFJC.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+
+
+<item>
+<title>[COLOR red]W[/COLOR][COLOR blue]P[/COLOR][COLOR red]T[/COLOR] [COLOR white]2018:[/COLOR][COLOR gold] Madrid Master Final [/COLOR][COLOR red]13 - 16 Diciembre [/COLOR]</title>
+
+<link>$doregex[makelist]</link>
+<regex>
+<name>makelist</name>
+<listrepeat><![CDATA[
+    <title>[COLOR red]Youtube:[/COLOR] [COLOR blue][makelist.param2][/COLOR]</title>
+    <link>plugin://plugin.video.youtube/play/?video_id=[makelist.param1]</link>
+   <thumbnail>http://i.imgur.com/ulUOBcy.jpg</thumbnail>
+]]></listrepeat>
+<expres>\s?.data-video-id="(.*?)".*data-title="(.*?)"</expres>
+<page>https://www.youtube.com/playlist?list=PL5OgI0HgFOhWNT5xMYLEd20ZM4Q2Kygjd</page>
+<referer>https://www.youtube.com/user/WorldPadelTourAJPP/playlists</referer>
+<cookieJar></cookieJar>
+</regex>
+<thumbnail>http://i.imgur.com/ulUOBcy.jpg</thumbnail>
+<fanart>http://i.imgur.com/DbnjLHj.jpg</fanart>
+</item>
+
+
+</channel>
